@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\GameController.cs" />
+    <Compile Include="Assets\InputController.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Attributes\CustomPrefixAttribute.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Attributes\DontGenerateAttribute.cs" />
     <Compile Include="Assets\Libraries\Entitas.CodeGenerator\Attributes\PoolAttribute.cs" />

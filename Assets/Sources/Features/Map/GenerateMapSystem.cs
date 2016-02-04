@@ -21,7 +21,7 @@ public class GenerateMapSystem : IInitializeSystem, ISetPool {
 
         foreach(int[] position in GeneratePositions(_sizeX, _sizeY))
         {
-            Entity e = _pool.CreateEntity()
+            _pool.CreateEntity()
                 .IsTile(true)
                 .AddTilePosition(position[0], position[1])
                 .AddTileType(GenerateTileType());
@@ -56,15 +56,33 @@ public class GenerateMapSystem : IInitializeSystem, ISetPool {
 
     void GenerateTileView(Entity[] entities)
     {
+        float _size = 0.5f; 
+
+        float _height = 2*_size;
+        float _verticalSpacing = _height * 0.75f;
+        float _width = Mathf.Sqrt(3)/2 * _height;
+        float _horizontalSpacing = _width;
+
+        Debug.Log(_size);
+
         Sprite[] tileSprites = Resources.LoadAll<Sprite>("Sprites/hexagon_tiles");
 
         foreach (Entity e in entities)
         {
             // Instantiate the game object, name it and put it in a container
-            GameObject go = GameObject.Instantiate(Resources.Load("Prefabs/Tile"), new Vector3(e.tilePosition.x, e.tilePosition.y), Quaternion.identity) as GameObject;
+            GameObject go = GameObject.Instantiate(Resources.Load("Prefabs/Tile"), new Vector3(e.tilePosition.x*_horizontalSpacing, e.tilePosition.y*_verticalSpacing), Quaternion.identity) as GameObject;
 
             go.name = "Tile [" + e.tilePosition.x + ";" + e.tilePosition.y + "]";
             go.transform.SetParent(_tileViewContainer.transform);
+
+            // Set the game object position with hex related offsets
+            // even y coordinates (pair)
+            if(Mathf.Abs(e.tilePosition.y%2) > 0)
+            {
+                go.transform.position += (Vector3.right * _horizontalSpacing / 2);
+            // odd y coordinates
+            }
+
             
             // Assign a view 
             string[] sprites;
