@@ -1,0 +1,157 @@
+fileFormatVersion: 2
+guid: b755c7cef05c80d42b3019ae039c83f7
+timeCreated: 1454621266
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: tile_grass
+    21300002: tile_sand
+    21300004: tile_dirt
+    21300006: tile_concrete
+    21300008: tile_redSand
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 120
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: tile_grass
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 1766
+        width: 120
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -27, y: 70}
+        - {x: -60, y: 39}
+        - {x: -60, y: -39}
+        - {x: -18, y: -70}
+        - {x: 10, y: -70}
+        - {x: 60, y: -46}
+        - {x: 60, y: 49}
+        - {x: 10, y: 70}
+    - name: tile_sand
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 1482
+        width: 120
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -14, y: 70}
+        - {x: -60, y: 39}
+        - {x: -60, y: -39}
+        - {x: -18, y: -70}
+        - {x: 10, y: -70}
+        - {x: 60, y: -46}
+        - {x: 60, y: 42}
+        - {x: 7, y: 70}
+    - name: tile_dirt
+      rect:
+        serializedVersion: 2
+        x: 732
+        y: 1198
+        width: 120
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -27, y: 70}
+        - {x: -60, y: 39}
+        - {x: -60, y: -39}
+        - {x: -18, y: -70}
+        - {x: 10, y: -70}
+        - {x: 60, y: -46}
+        - {x: 60, y: 49}
+        - {x: 10, y: 70}
+    - name: tile_concrete
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 204
+        width: 120
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -27, y: 70}
+        - {x: -60, y: 39}
+        - {x: -60, y: -39}
+        - {x: -18, y: -70}
+        - {x: 10, y: -70}
+        - {x: 60, y: -46}
+        - {x: 60, y: 49}
+        - {x: 10, y: 70}
+    - name: tile_redSand
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 772
+        width: 120
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -27, y: 70}
+        - {x: -60, y: 39}
+        - {x: -60, y: -39}
+        - {x: -18, y: -70}
+        - {x: 10, y: -70}
+        - {x: 60, y: -46}
+        - {x: 60, y: 49}
+        - {x: 10, y: 70}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
