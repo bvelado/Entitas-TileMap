@@ -26,7 +26,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 446922}
   - 212: {fileID: 21294198}
-  m_Layer: 0
+  - 60: {fileID: 6064326}
+  m_Layer: 8
   m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,6 +85,26 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!60 &6064326
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175062}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: 0.003824696, y: 0.49895966}
+      - {x: 0.42324293, y: 0.25164598}
+      - {x: 0.43097115, y: -0.25825518}
+      - {x: -0.0026007295, y: -0.50303805}
+      - {x: -0.42482245, y: -0.2480801}
+      - {x: -0.42706764, y: 0.24017182}
 --- !u!102 &10287174
 TextMesh:
   serializedVersion: 3
@@ -131,7 +152,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300008, guid: b755c7cef05c80d42b3019ae039c83f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -173,6 +194,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Text
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

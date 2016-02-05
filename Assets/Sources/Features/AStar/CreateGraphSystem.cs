@@ -101,16 +101,5 @@ public class CreateGraphSystem : IInitializeSystem, ISetPool
                 _pool.graph.graph[e] = neighboursArray;
             }
         }
-
-        foreach(Entity e in _group.GetEntities())
-        {
-            if(e.tilePosition.x == -5 && e.tilePosition.y == 4)
-            {
-                foreach(Entity neighbor in _pool.graph.graph[e])
-                {
-                    Debug.Log("[" + neighbor.tilePosition.x + ";" + neighbor.tilePosition.y + "]");
-                }
-            }
-        }
     }
 }

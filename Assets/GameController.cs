@@ -31,6 +31,13 @@ public class GameController : MonoBehaviour {
             .Add(pool.CreateSystem<GenerateMapSystem>())
 
             // Generate Graph
-            .Add(pool.CreateSystem<CreateGraphSystem>());
+            .Add(pool.CreateSystem<CreateGraphSystem>())
+
+            .Add(pool.CreateSystem<ProcessPathfindingSystem>())
+            .Add(pool.CreateSystem<HighlightCompletedPathSystem>())
+
+            .Add(pool.CreateSystem<HandleInputSystem>())
+
+            .Add(pool.CreateSystem<SelectTileSystem>());
     }
 }

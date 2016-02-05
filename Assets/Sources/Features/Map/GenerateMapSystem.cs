@@ -100,5 +100,27 @@ public class GenerateMapSystem : IInitializeSystem, ISetPool {
 
             e.AddTileView(go);
         }
+
+        Entity startTile = null, targetTile = null;
+
+        foreach(Entity e in _pool.GetEntities(Matcher.AllOf(Matcher.Tile, Matcher.TilePosition)))
+        {
+            if(e.tilePosition.x == 0 && e.tilePosition.y == 0)
+            {
+                startTile = e;
+            }
+
+            if (e.tilePosition.x == 4 && e.tilePosition.y == 3)
+            {
+                targetTile = e;
+            }
+        }
+
+        if(startTile != null && targetTile != null)
+        {
+            _pool.CreateEntity().AddPath(new List<Entity>())
+               .AddRequest(startTile, targetTile);
+        }
+        
     }
 }
