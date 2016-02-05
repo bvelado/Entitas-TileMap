@@ -63,8 +63,6 @@ public class GenerateMapSystem : IInitializeSystem, ISetPool {
         float _width = Mathf.Sqrt(3)/2 * _height;
         float _horizontalSpacing = _width;
 
-        Debug.Log(_size);
-
         Sprite[] tileSprites = Resources.LoadAll<Sprite>("Sprites/hexagon_tiles");
 
         foreach (Entity e in entities)
@@ -75,14 +73,16 @@ public class GenerateMapSystem : IInitializeSystem, ISetPool {
             go.name = "Tile [" + e.tilePosition.x + ";" + e.tilePosition.y + "]";
             go.transform.SetParent(_tileViewContainer.transform);
 
+            // DEBUG
+            // Show tile position on screen
+            go.transform.GetComponentInChildren<TextMesh>().text = "[" + e.tilePosition.x + ";" + e.tilePosition.y + "]";
+
             // Set the game object position with hex related offsets
-            // even y coordinates (pair)
+            // odd y coordinates (impair)
             if(Mathf.Abs(e.tilePosition.y%2) > 0)
             {
                 go.transform.position += (Vector3.right * _horizontalSpacing / 2);
-            // odd y coordinates
             }
-
             
             // Assign a view 
             string[] sprites;

@@ -2,6 +2,10 @@
 
 public class NodeComponent : IComponent {
     /// <summary>
+    /// The node from where we can access this node
+    /// </summary>
+    public Entity parent;
+    /// <summary>
     /// Coût total d'une node
     /// </summary>
     public float fcost;

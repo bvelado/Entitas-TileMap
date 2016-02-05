@@ -27,7 +27,10 @@ public class GameController : MonoBehaviour {
         return new Systems()
 #endif
 
-            // Input
-            .Add(pool.CreateSystem<GenerateMapSystem>());
+            // Generate tile map
+            .Add(pool.CreateSystem<GenerateMapSystem>())
+
+            // Generate Graph
+            .Add(pool.CreateSystem<CreateGraphSystem>());
     }
 }

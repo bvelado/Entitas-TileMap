@@ -4,18 +4,20 @@ namespace Entitas {
 
         public bool hasNode { get { return HasComponent(ComponentIds.Node); } }
 
-        public Entity AddNode(float newFcost, float newGcost, float newHcost) {
+        public Entity AddNode(Entitas.Entity newParent, float newFcost, float newGcost, float newHcost) {
             var componentPool = GetComponentPool(ComponentIds.Node);
             var component = (NodeComponent)(componentPool.Count > 0 ? componentPool.Pop() : new NodeComponent());
+            component.parent = newParent;
             component.fcost = newFcost;
             component.gcost = newGcost;
             component.hcost = newHcost;
             return AddComponent(ComponentIds.Node, component);
         }
 
-        public Entity ReplaceNode(float newFcost, float newGcost, float newHcost) {
+        public Entity ReplaceNode(Entitas.Entity newParent, float newFcost, float newGcost, float newHcost) {
             var componentPool = GetComponentPool(ComponentIds.Node);
             var component = (NodeComponent)(componentPool.Count > 0 ? componentPool.Pop() : new NodeComponent());
+            component.parent = newParent;
             component.fcost = newFcost;
             component.gcost = newGcost;
             component.hcost = newHcost;
