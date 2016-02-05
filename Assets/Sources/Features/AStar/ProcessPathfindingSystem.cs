@@ -24,22 +24,20 @@ public class ProcessPathfindingSystem : IReactiveSystem, ISetPool
     public void Execute(List<Entity> entities)
     {
         foreach(var e in entities) {
-            foreach(var tile in _pool.GetEntities(Matcher.Tile))
-            {
-                tile.AddNode(null, 0, 0, 0);
-            }
-
             bool pathComplete = false;
 
             Entity startNode = e.request.start;
             Entity targetNode = e.request.target;
 
+            startNode.AddNode(null, PoolExtensions.GetDistanceBetweenNodes(startNode, targetNode), 0, PoolExtensions.GetDistanceBetweenNodes(startNode, targetNode));
+
+            // Nodes to process
             List<Entity> openList = new List<Entity>();
+            // Already processed nodes
             List<Entity> closedList = new List<Entity>();
 
+            Entity currentNode;
             openList.Add(startNode);
-
-            Entity currentNode = startNode;
 
             while (openList.Count > 0 && !pathComplete)
             {
@@ -64,25 +62,30 @@ public class ProcessPathfindingSystem : IReactiveSystem, ISetPool
                 {
                     foreach(Entity neighbor in _pool.graph.graph[currentNode])
                     {
+                        // Calculate neighbor g and h cost
+                        float gcost = currentNode.node.gcost + PoolExtensions.GetDistanceBetweenNodes(currentNode, neighbor);
+                        float hcost = PoolExtensions.GetDistanceBetweenNodes(neighbor, targetNode);
+                        float fcost = gcost + hcost;
+
+                        if(!neighbor.hasNode)
+                        {
+                            neighbor.AddNode(currentNode, 0, gcost, hcost);
+                            neighbor.node.fcost = neighbor.node.gcost + neighbor.node.gcost;
+                        }
+
+                        // Neighbor must not be in close list
                         if(!closedList.Contains(neighbor))
                         {
-                            if(!openList.Contains(neighbor) || neighbor.node.fcost > currentNode.node.fcost)
+                            // If neighbor isn't already in open list or if he is, g cost is lower by coming from current parent
+                            if(!openList.Contains(neighbor))
                             {
-                                float newGcostToNeighbor = currentNode.node.gcost + PoolExtensions.GetDistanceBetweenNodes(currentNode, neighbor);
-                                if(newGcostToNeighbor < neighbor.node.gcost || !openList.Contains(neighbor))
+                                if (!openList.Contains(neighbor))
                                 {
-                                    neighbor.node.gcost = newGcostToNeighbor;
-                                    neighbor.node.hcost = PoolExtensions.GetDistanceBetweenNodes(neighbor, targetNode);
-                                    neighbor.node.fcost = neighbor.node.gcost + neighbor.node.hcost;
                                     neighbor.node.parent = currentNode;
-
-                                    if(!openList.Contains(neighbor))
-                                    {
-                                        openList.Add(neighbor);
-                                    }
+                                    openList.Add(neighbor);
                                 }
                             }
-                        } 
+                        }
                     }
                 }
             }

@@ -1,5 +1,5 @@
 ﻿using Entitas;
 
 public class RequestComponent : IComponent {
-    public Entity target, start;
+    public Entity start, target;
 }

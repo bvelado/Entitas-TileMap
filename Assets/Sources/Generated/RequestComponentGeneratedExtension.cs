@@ -4,19 +4,19 @@ namespace Entitas {
 
         public bool hasRequest { get { return HasComponent(ComponentIds.Request); } }
 
-        public Entity AddRequest(Entitas.Entity newTarget, Entitas.Entity newStart) {
+        public Entity AddRequest(Entitas.Entity newStart, Entitas.Entity newTarget) {
             var componentPool = GetComponentPool(ComponentIds.Request);
             var component = (RequestComponent)(componentPool.Count > 0 ? componentPool.Pop() : new RequestComponent());
-            component.target = newTarget;
             component.start = newStart;
+            component.target = newTarget;
             return AddComponent(ComponentIds.Request, component);
         }
 
-        public Entity ReplaceRequest(Entitas.Entity newTarget, Entitas.Entity newStart) {
+        public Entity ReplaceRequest(Entitas.Entity newStart, Entitas.Entity newTarget) {
             var componentPool = GetComponentPool(ComponentIds.Request);
             var component = (RequestComponent)(componentPool.Count > 0 ? componentPool.Pop() : new RequestComponent());
-            component.target = newTarget;
             component.start = newStart;
+            component.target = newTarget;
             ReplaceComponent(ComponentIds.Request, component);
             return this;
         }

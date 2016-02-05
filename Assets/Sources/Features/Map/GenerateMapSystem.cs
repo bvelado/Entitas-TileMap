@@ -51,7 +51,7 @@ public class GenerateMapSystem : IInitializeSystem, ISetPool {
 
         int randomIndex = Random.Range(0, values.Length);
 
-        return (TileType)values.GetValue(values[randomIndex]);
+        return TileType.Sand;//(TileType)values.GetValue(values[randomIndex]);
     }
 
     void GenerateTileView(Entity[] entities)
@@ -105,12 +105,12 @@ public class GenerateMapSystem : IInitializeSystem, ISetPool {
 
         foreach(Entity e in _pool.GetEntities(Matcher.AllOf(Matcher.Tile, Matcher.TilePosition)))
         {
-            if(e.tilePosition.x == 0 && e.tilePosition.y == 0)
+            if(e.tilePosition.x == 4 && e.tilePosition.y == -4)
             {
                 startTile = e;
             }
 
-            if (e.tilePosition.x == 4 && e.tilePosition.y == 3)
+            if (e.tilePosition.x == -5 && e.tilePosition.y == 3)
             {
                 targetTile = e;
             }
