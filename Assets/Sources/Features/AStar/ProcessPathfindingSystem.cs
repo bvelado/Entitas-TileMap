@@ -60,33 +60,7 @@ public class ProcessPathfindingSystem : IReactiveSystem, ISetPool
                     pathComplete = true;
                 } else
                 {
-                    foreach(Entity neighbor in _pool.graph.graph[currentNode])
-                    {
-                        // Calculate neighbor g and h cost
-                        float gcost = currentNode.node.gcost + PoolExtensions.GetDistanceBetweenNodes(currentNode, neighbor);
-                        float hcost = PoolExtensions.GetDistanceBetweenNodes(neighbor, targetNode);
-                        float fcost = gcost + hcost;
-
-                        if(!neighbor.hasNode)
-                        {
-                            neighbor.AddNode(currentNode, 0, gcost, hcost);
-                            neighbor.node.fcost = neighbor.node.gcost + neighbor.node.gcost;
-                        }
-
-                        // Neighbor must not be in close list
-                        if(!closedList.Contains(neighbor))
-                        {
-                            // If neighbor isn't already in open list or if he is, g cost is lower by coming from current parent
-                            if(!openList.Contains(neighbor))
-                            {
-                                if (!openList.Contains(neighbor))
-                                {
-                                    neighbor.node.parent = currentNode;
-                                    openList.Add(neighbor);
-                                }
-                            }
-                        }
-                    }
+                    
                 }
             }
         }

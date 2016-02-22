@@ -16,90 +16,32 @@ public class CreateGraphSystem : IInitializeSystem, ISetPool
 
     public void Initialize()
     {
-        _pool.CreateEntity().AddGraph(new Dictionary<Entity, Entity[]>());
+        Dictionary<Hex, List<Hex>> graph = new Dictionary<Hex, List<Hex>>();
+        _pool.CreateEntity()
+            .AddGraph(graph);
 
-        foreach(Entity e in _group.GetEntities() )
+        foreach(Entity e in _group.GetEntities())
         {
-            List<Entity> tempNeighbors = new List<Entity>();
-            _pool.graph.graph.Add(e, null);
+            List<Hex> neighborsPosition = new List<Hex>();
 
-            // Look for neighbours using TilePosition
-            foreach(Entity tile in _group.GetEntities())
+            foreach(Entity node in _group.GetEntities())
             {
-                // West
-                if(tile.tilePosition.x == e.tilePosition.x-1 && tile.tilePosition.y == e.tilePosition.y)
+                foreach(Hex position in e.tilePosition.position.GetNeighborsPositions())
                 {
-                    tempNeighbors.Add(tile);
-                }
-                
-                // East
-                if(tile.tilePosition.x == e.tilePosition.x+1 && tile.tilePosition.y == e.tilePosition.y)
-                {
-                    tempNeighbors.Add(tile);
-                }
-
-                // For odd rows (impair)
-                if(e.tilePosition.y %2 > 0)
-                {
-                    // North West
-                    if(tile.tilePosition.x == e.tilePosition.x && tile.tilePosition.y == e.tilePosition.y + 1)
+                    if(Hex.IsEqual(node.tilePosition.position, position))
                     {
-                        tempNeighbors.Add(tile);
-                    }
-
-                    // North East
-                    if (tile.tilePosition.x == e.tilePosition.x + 1 && tile.tilePosition.y == e.tilePosition.y + 1)
-                    {
-                        tempNeighbors.Add(tile);
-                    }
-
-                    // South West
-                    if (tile.tilePosition.x == e.tilePosition.x && tile.tilePosition.y == e.tilePosition.y - 1)
-                    {
-                        tempNeighbors.Add(tile);
-                    }
-
-                    // South East
-                    if (tile.tilePosition.x == e.tilePosition.x + 1 && tile.tilePosition.y == e.tilePosition.y - 1)
-                    {
-                        tempNeighbors.Add(tile);
-                    }
-
-                    // For even rows (pair)
-                } else {
-                    // North West
-                    if (tile.tilePosition.x == e.tilePosition.x - 1 && tile.tilePosition.y == e.tilePosition.y + 1)
-                    {
-                        tempNeighbors.Add(tile);
-                    }
-
-                    // North East
-                    if (tile.tilePosition.x == e.tilePosition.x && tile.tilePosition.y == e.tilePosition.y + 1)
-                    {
-                        tempNeighbors.Add(tile);
-                    }
-
-                    // South West
-                    if (tile.tilePosition.x == e.tilePosition.x - 1 && tile.tilePosition.y == e.tilePosition.y - 1)
-                    {
-                        tempNeighbors.Add(tile);
-                    }
-
-                    // South East
-                    if (tile.tilePosition.x == e.tilePosition.x && tile.tilePosition.y == e.tilePosition.y - 1)
-                    {
-                        tempNeighbors.Add(tile);
+                        neighborsPosition.Add(position);
                     }
                 }
-
-                Entity[] neighboursArray = new Entity[tempNeighbors.Count];
-                for(int i = 0; i < tempNeighbors.Count; i++)
-                {
-                    neighboursArray[i] = tempNeighbors[i];
-                }
-
-                _pool.graph.graph[e] = neighboursArray;
             }
+
+            _pool.graph.graph.Add(e.tilePosition.position, neighborsPosition);
+
+            foreach(Hex position in _pool.graph.graph[e.tilePosition.position])
+            {
+                Debug.Log(e.tilePosition.position.ToString() + " : " + position.ToString());
+            }
+            
         }
     }
 }

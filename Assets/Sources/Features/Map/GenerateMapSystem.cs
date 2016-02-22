@@ -6,6 +6,7 @@ public class GenerateMapSystem : IInitializeSystem, ISetPool {
     Pool _pool;
 
     int _sizeX, _sizeY;
+    int _range;
 
     readonly GameObject _tileViewContainer = new GameObject("Tiles");
 
@@ -19,24 +20,54 @@ public class GenerateMapSystem : IInitializeSystem, ISetPool {
         _sizeX = Map01.sizeX;
         _sizeY = Map01.sizeY;
 
-        foreach(int[] position in GeneratePositions(_sizeX, _sizeY))
+        _range = Map01.range;
+
+        foreach (int[] position in GeneratePositions(_range))
         {
             _pool.CreateEntity()
                 .IsTile(true)
-                .AddTilePosition(position[0], position[1])
+                .AddTilePosition(new Hex(position[0], position[1]))
                 .AddTileType(GenerateTileType());
         }
 
         GenerateTileView(_pool.GetEntities(Matcher.AllOf(Matcher.Tile, Matcher.TilePosition, Matcher.TileType)));
     }
 
+    /// <summary>
+    /// Generate an hexagonal map.
+    /// </summary>
+    /// <param name="range">Max range</param>
+    /// <returns></returns>
+    List<int[]> GeneratePositions(int range)
+    {
+        List<int[]> positions = new List<int[]>();
+
+        for (int x = -range; x <= range; x++)
+        {
+            for (int y = -range; y <= range; y++)
+            {
+                if((-x -y) >= - range && (-x- y) <= range)
+                    positions.Add(new int[] { x, y });
+                
+            }
+        }
+
+        return positions;
+    }
+
+    /// <summary>
+    /// Generate a map including all points from [-sixeX;-sizeY] to [sizeX;sizeY]
+    /// </summary>
+    /// <param name="sizeX">Width of the map</param>
+    /// <param name="sizeY">Length of the map</param>
+    /// <returns></returns>
     List<int[]> GeneratePositions(int sizeX, int sizeY)
     {
         List<int[]> positions = new List<int[]>();
 
-        for(int x = -(sizeX/2); x < (sizeX/2); x++)
+        for(int x = (sizeX/2); x >= -(sizeX/2); x--)
         {
-            for (int y = -(sizeY / 2); y < (sizeY / 2); y++)
+            for (int y = (sizeY / 2); y >= -(sizeY / 2); y--)
             {
                 positions.Add(new int[] { x , y });
             }
@@ -68,21 +99,18 @@ public class GenerateMapSystem : IInitializeSystem, ISetPool {
         foreach (Entity e in entities)
         {
             // Instantiate the game object, name it and put it in a container
-            GameObject go = GameObject.Instantiate(Resources.Load("Prefabs/Tile"), new Vector3(e.tilePosition.x*_horizontalSpacing, e.tilePosition.y*_verticalSpacing), Quaternion.identity) as GameObject;
+            GameObject go = GameObject.Instantiate(Resources.Load("Prefabs/Tile"), new Vector3(e.tilePosition.position._q*_horizontalSpacing, -e.tilePosition.position._r*_verticalSpacing), Quaternion.identity) as GameObject;
 
-            go.name = "Tile [" + e.tilePosition.x + ";" + e.tilePosition.y + "]";
+            go.name = "Tile [" + e.tilePosition.position._q + ";" + e.tilePosition.position._r + "]";
             go.transform.SetParent(_tileViewContainer.transform);
 
             // DEBUG
             // Show tile position on screen
-            go.transform.GetComponentInChildren<TextMesh>().text = "[" + e.tilePosition.x + ";" + e.tilePosition.y + "]";
+            go.transform.GetComponentInChildren<TextMesh>().text = "[" + e.tilePosition.position._q + ";" + e.tilePosition.position._r + "]";
 
             // Set the game object position with hex related offsets
             // odd y coordinates (impair)
-            if(Mathf.Abs(e.tilePosition.y%2) > 0)
-            {
-                go.transform.position += (Vector3.right * _horizontalSpacing / 2);
-            }
+            go.transform.position += (Vector3.right * e.tilePosition.position._r * _horizontalSpacing / 2);
             
             // Assign a view 
             string[] sprites;
@@ -100,27 +128,5 @@ public class GenerateMapSystem : IInitializeSystem, ISetPool {
 
             e.AddTileView(go);
         }
-
-        Entity startTile = null, targetTile = null;
-
-        foreach(Entity e in _pool.GetEntities(Matcher.AllOf(Matcher.Tile, Matcher.TilePosition)))
-        {
-            if(e.tilePosition.x == 4 && e.tilePosition.y == -4)
-            {
-                startTile = e;
-            }
-
-            if (e.tilePosition.x == -5 && e.tilePosition.y == 3)
-            {
-                targetTile = e;
-            }
-        }
-
-        if(startTile != null && targetTile != null)
-        {
-            _pool.CreateEntity().AddPath(new List<Entity>())
-               .AddRequest(startTile, targetTile);
-        }
-        
     }
 }

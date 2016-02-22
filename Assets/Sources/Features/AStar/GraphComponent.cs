@@ -4,5 +4,5 @@ using System.Collections.Generic;
 
 [SingleEntity]
 public class GraphComponent : IComponent {
-    public Dictionary<Entity, Entity[]> graph;
+    public Dictionary<Hex, List<Hex>> graph;
 }

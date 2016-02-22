@@ -6,10 +6,9 @@ public static class PoolExtensions {
 
     public static float GetDistanceBetweenNodes(Entity a, Entity b)
     {
-        float dstX = Mathf.Abs(a.tilePosition.x - b.tilePosition.x);
-        float dstY = Mathf.Abs(a.tilePosition.y - b.tilePosition.y);
+        float result = 1;
 
-        return dstX + dstY;
+        return result;
     }
 
     public static List<Entity> RetracePath(Entity startNode, Entity endNode)

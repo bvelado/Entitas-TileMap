@@ -4,19 +4,17 @@ namespace Entitas {
 
         public bool hasTilePosition { get { return HasComponent(ComponentIds.TilePosition); } }
 
-        public Entity AddTilePosition(float newX, float newY) {
+        public Entity AddTilePosition(Hex newPosition) {
             var componentPool = GetComponentPool(ComponentIds.TilePosition);
             var component = (TilePositionComponent)(componentPool.Count > 0 ? componentPool.Pop() : new TilePositionComponent());
-            component.x = newX;
-            component.y = newY;
+            component.position = newPosition;
             return AddComponent(ComponentIds.TilePosition, component);
         }
 
-        public Entity ReplaceTilePosition(float newX, float newY) {
+        public Entity ReplaceTilePosition(Hex newPosition) {
             var componentPool = GetComponentPool(ComponentIds.TilePosition);
             var component = (TilePositionComponent)(componentPool.Count > 0 ? componentPool.Pop() : new TilePositionComponent());
-            component.x = newX;
-            component.y = newY;
+            component.position = newPosition;
             ReplaceComponent(ComponentIds.TilePosition, component);
             return this;
         }
